@@ -1,0 +1,8 @@
+---
+- name: Create Nomad User
+  user:
+    name: nomad
+    shell: /bin/false
+    home: /etc/nomad.d
+    groups: docker, nomad
+    system: yes

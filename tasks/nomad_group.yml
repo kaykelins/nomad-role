@@ -1,0 +1,5 @@
+---
+- name: Create Nomad Group
+  group:
+    name: nomad
+    state: present

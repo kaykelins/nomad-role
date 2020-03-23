@@ -1,0 +1,34 @@
+log_level = "{{ log_level }}"
+bind_addr = "{{ bind_addr }}"
+data_dir = "{{ data_dir }}"
+
+server {
+    enabled = "{{ server_enable }}"
+    bootstrap_expect = "{{ bootstrap_expect }}"
+}
+
+client {
+    enabled = "{{ client_enable }}"
+    network_interface = "{{ network_interface }}"
+}
+
+consul {
+  address             = "{{ consul_address }}:{{ consul_port }}"
+  server_service_name = "{{ server_service_name }}"
+  client_service_name = "{{ client_service_name }}"
+  auto_advertise      = "{{ auto_advertise }}"
+  server_auto_join    = "{{ server_auto_join }}"
+  client_auto_join    = "{{ client_auto_join }}"
+  token               = "{{ token }}"
+}
+
+acl {
+  enabled = "{{ acl_enable }}"
+}
+
+vault {
+  enabled          = "{{ vault_enabled }}"
+  address          = "{{ vault_schema }}://{{ vault_address }}:{{ vault_port }}"
+  create_from_role = "{{ vault_create_from_role }}"
+  token            = "{{ vault_token }}"
+}

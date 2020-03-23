@@ -1,0 +1,8 @@
+---
+- name: momad service
+  copy:
+    src: nomad.service
+    dest: /etc/systemd/system/nomad.service
+    owner: nomad
+    group: nomad
+    mode: 0640
