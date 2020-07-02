@@ -1,6 +1,6 @@
 ---
 # vars file for nomad-common
-nomad_version: 0.9.6
+nomad_version: 0.11.3
 #* Nomad Basic Config Variables
 log_level: "DEBUG"
 bind_addr: "{{ ansible_facts.default_ipv4.address }}"
