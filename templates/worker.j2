@@ -27,7 +27,7 @@ acl {
 }
 
 vault {
-  enabled          = {{ vault_enabled }}
+  enabled          = "{{ vault_enabled }}"
   address          = "{{ vault_schema }}://{{ vault_address }}:{{ vault_port }}"
   create_from_role = "{{ vault_create_from_role }}"
 }

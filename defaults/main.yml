@@ -36,4 +36,4 @@ vault_address: "{{ ansible_facts.default_ipv4.address }}"
 vault_schema: "http"
 vault_port: 8200
 vault_create_from_role: "nomad-cluster"
-vault_token: "s.ekmiOYX0bIsW4CXacLEOLo6T"
+vault_token: ""
