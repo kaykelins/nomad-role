@@ -4,5 +4,13 @@
     name: nomad
     shell: /bin/false
     home: /etc/nomad.d
-    groups: docker, nomad
+    groups: nomad
     system: yes
+
+- name: Grant Nomad access to docker
+  acl:
+    path: /var/run/docker.sock
+    entity: nomad
+    etype: user
+    permissions: rw
+    state: present

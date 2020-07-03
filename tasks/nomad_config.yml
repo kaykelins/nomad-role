@@ -1,18 +1,11 @@
 ---
-#- name: momad config
-#  copy:
-#    src: nomad_{{inventory_hostname}}.hcl
-#    dest: /etc/nomad.d/nomad.hcl
-#    owner: nomad
-#    group: nomad
-#    mode: 0640
 - name: nomad manager Config
   template:
     src: manager.j2
     dest: /etc/nomad.d/nomad.hcl
     owner: nomad
     group: nomad
-    mode: 0640
+    mode: "0640"
   when: "'manager' in group_names"
 
 - name: nomad worker config
@@ -21,5 +14,5 @@
     dest: /etc/nomad.d/nomad.hcl
     owner: nomad
     group: nomad
-    mode: 0640
+    mode: "0640"
   when: "'worker' in group_names"
