@@ -7,3 +7,12 @@
     group: root
     mode: '0755'
     remote_src: yes
+
+- name: Download nomad to sbin
+  unarchive:
+    src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
+    dest: /usr/sbin
+    owner: root
+    group: root
+    mode: '0755'
+    remote_src: yes
