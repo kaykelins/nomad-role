@@ -1,0 +1,8 @@
+- name: "Install unzip"
+  apt:
+    name:
+      - unzip
+    state: latest
+    update_cache: true
+  when:
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
