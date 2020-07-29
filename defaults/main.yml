@@ -31,7 +31,7 @@ retry_join: "{{hostvars[groups['manager'][0]]['ansible_default_ipv4']['address']
 acl_enable: "true"
 
 #* Vault Config Variables
-vault_enabled: true
+vault_enabled: false
 vault_address: "{{ ansible_facts.default_ipv4.address }}"
 vault_schema: "http"
 vault_port: 8200
