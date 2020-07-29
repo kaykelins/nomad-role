@@ -1,0 +1,17 @@
+log_level = "{{ log_level }}"
+bind_addr = "{{ bind_addr }}"
+data_dir = "{{ data_dir }}"
+
+server {
+    enabled = "{{ server_enable }}"
+    bootstrap_expect = "{{ bootstrap_expect }}"
+}
+
+client {
+    enabled = "{{ client_enable }}"
+    network_interface = "{{ network_interface }}"
+}
+
+acl {
+  enabled = "{{ acl_enable }}"
+}
