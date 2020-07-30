@@ -12,6 +12,22 @@ client {
     network_interface = "{{ network_interface }}"
 }
 
+plugin "docker" {
+  config {
+    gc {
+      image       = true
+      image_delay = "6h"
+      container   = true
+
+      dangling_containers {
+        enabled        = true
+        dry_run        = false
+        period         = "5m"
+        creation_grace = "5m"
+      }
+    }
+  }
+}
 acl {
   enabled = "{{ acl_enable }}"
 }
