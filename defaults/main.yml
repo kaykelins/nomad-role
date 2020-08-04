@@ -1,10 +1,11 @@
 ---
 # defaults file for nomad-common
-nomad_version: 0.11.3
+nomad_version: 0.12.1
 #* Nomad Basic Config Variables
 log_level: "DEBUG"
 bind_addr: "{{ ansible_facts.default_ipv4.address }}"
 data_dir: "/opt/nomad"
+region: "us-east"
 
 #* Consul Config Variables
 consul_address: "{{ ansible_facts.default_ipv4.address }}"
@@ -14,11 +15,19 @@ client_service_name: "nomad-client"
 auto_advertise: "true"
 server_auto_join: "true"
 client_auto_join: "true"
-token: ""
+server_token: ""
+client_token: ""
+consul_allow_unauthenticated: "false"
 
 #* Nomad Server Config Variables
 server_enable: "true"
-bootstrap_expect: 1
+bootstrap_expect: 3
+node_gc_threshold: "24h"
+job_gc_threshold: "24h"
+job_gc_interval: "30m"
+eval_gc_threshold: "24h"
+deployment_gc_threshold: "24h"
+encrypt_token: ""
 
 #* Nomad Client Config Variables
 client_enable: "true"
@@ -26,6 +35,10 @@ network_interface: "eth0"
 retry_max: 3
 retry_interval: "15s"
 retry_join: "{{hostvars[groups['manager'][0]]['ansible_default_ipv4']['address']}}"
+client_gc_interval: "10m"
+client_gc_disk_usage_threshold: 80
+client_gc_parallel_destroys: 5
+client_driver_whitelist: "docker"
 
 #* Nomad Acl Config Variables
 acl_enable: "true"

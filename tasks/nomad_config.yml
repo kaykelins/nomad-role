@@ -25,3 +25,14 @@
     group: nomad
     mode: "0640"
   when: "'standalone' in group_names"
+
+- name: nomad manager Config (encrypt_enabled)
+  template:
+    src: manager_encrypt.j2
+    dest: /etc/nomad.d/nomad.hcl
+    owner: nomad
+    group: nomad
+    mode: "0640"
+  when: "'manager' in group_names"
+  tags:
+    - nomad_encrypt

@@ -1,6 +1,7 @@
 log_level = "{{ log_level }}"
 bind_addr = "{{ bind_addr }}"
 data_dir = "{{ data_dir }}"
+region = "{{region}}"
 
 client {
     enabled = "{{ client_enable }}"
@@ -10,16 +11,21 @@ client {
         retry_max = "{{ retry_max }}"
         retry_interval = "{{ retry_interval }}"
     }
+    options = {
+      "driver.whitelist" = "{{ client_driver_whitelist }}"
+    }
+    gc_interval = "{{ client_gc_interval }}"
+    gc_disk_usage_threshold = {{ client_gc_disk_usage_threshold }}
+    gc_parallel_destroys = {{ client_gc_parallel_destroys }}
 }
 
 consul {
   address             = "{{ ansible_facts.default_ipv4.address }}:{{ consul_port }}"
-  server_service_name = "{{ server_service_name }}"
   client_service_name = "{{ client_service_name }}"
   auto_advertise      = "{{ auto_advertise }}"
-  server_auto_join    = "{{ server_auto_join }}"
   client_auto_join    = "{{ client_auto_join }}"
-  token               = "{{ token }}"
+  token               = "{{ client_token }}"
+  allow_unauthenticated = "{{ consul_allow_unauthenticated }}"
 }
 
 acl {

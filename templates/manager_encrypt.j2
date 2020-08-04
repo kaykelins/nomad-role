@@ -6,13 +6,13 @@ region    = "{{ region }}"
 server {
     enabled = "{{ server_enable }}"
     bootstrap_expect = "{{ bootstrap_expect }}"
+    encrypt = "{{ encrypt_token }}"
     node_gc_threshold = "{{ node_gc_threshold }}"
     job_gc_threshold = "{{ job_gc_threshold }}"
     job_gc_interval = "{{ job_gc_interval }}"
     eval_gc_threshold = "{{ eval_gc_threshold }}"
     deployment_gc_threshold = "{{ deployment_gc_threshold }}"
 }
-
 
 consul {
   address             = "{{ consul_address }}:{{ consul_port }}"
