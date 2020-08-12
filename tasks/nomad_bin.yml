@@ -29,8 +29,6 @@
     group: root
     mode: '0755'
   when: result_bin is failed
-  tags:
-    - offline
 
 - name: Download_nomad_offline_sbin
   unarchive:
@@ -40,5 +38,4 @@
     group: root
     mode: '0755'
   when: result_sbin is failed
-  tags:
-    - offline
+
