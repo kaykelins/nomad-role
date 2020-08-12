@@ -1,5 +1,5 @@
 ---
-- name: Download nomad
+- name: Download_nomad_to_bin
   unarchive:
     src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
     dest: /usr/local/bin
@@ -7,8 +7,10 @@
     group: root
     mode: '0755'
     remote_src: yes
+  register: result_bin
+  ignore_errors: True
 
-- name: Download nomad to sbin
+- name: Download_nomad_to_sbin
   unarchive:
     src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
     dest: /usr/sbin
@@ -16,23 +18,27 @@
     group: root
     mode: '0755'
     remote_src: yes
+  register: result_sbin
+  ignore_errors: True
 
-- name: Download nomad
+- name: Download_nomad_offline_bin
   unarchive:
     src: nomad.zip
     dest: /usr/local/bin
     owner: root
     group: root
     mode: '0755'
+  when: result_bin is failed
   tags:
     - offline
 
-- name: Download nomad
+- name: Download_nomad_offline_sbin
   unarchive:
     src: nomad.zip
     dest: /usr/local/sbin
     owner: root
     group: root
     mode: '0755'
+  when: result_sbin is failed
   tags:
     - offline

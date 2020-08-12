@@ -1,5 +1,5 @@
 ---
-- name: momad service
+- name: Nomad service
   copy:
     src: nomad.service
     dest: /etc/systemd/system/nomad.service

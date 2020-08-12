@@ -1,8 +1,17 @@
-- name: "Install unzip"
+- name: "Installing Debian Unzip"
   apt:
-    name:
+    name: 
       - unzip
     state: latest
     update_cache: true
   when:
     - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: "Installing Centos Unzip"
+  yum:
+    name: 
+      - unzip
+    state: latest
+    update_cache: true
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
