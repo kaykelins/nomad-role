@@ -6,6 +6,8 @@
     update_cache: true
   when:
     - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+    - install
 
 - name: "Installing Centos Unzip"
   yum:
@@ -15,3 +17,13 @@
     update_cache: true
   when:
     - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags: 
+    - install
+
+- name: stop nomad
+  service:
+    name: nomad
+    state: stopped
+    enabled: no
+  tags:
+    - uninstall

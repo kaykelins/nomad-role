@@ -1,17 +1,2 @@
 ---
 # handlers file for nomad-common
-- name: start nomad
-  service:
-    name: nomad
-    state: started
-    enabled: yes
-  tags:
-    - install
-
-- name: stop nomad
-  service:
-    name: nomad
-    state: stopped
-    enabled: no
-  tags:
-    - uninstall

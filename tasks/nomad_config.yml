@@ -7,7 +7,6 @@
     group: nomad
     mode: "0640"
   when: "'manager' in group_names"
-  notify: "start nomad"
   tags:
     - install
 
@@ -19,7 +18,6 @@
     group: nomad
     mode: "0640"
   when: "'worker' in group_names"
-  notify: "start nomad"
   tags:
     - install
 
@@ -31,7 +29,6 @@
     group: nomad
     mode: "0640"
   when: "'standalone' in group_names"
-  notify: "start nomad"
   tags:
     - install
 
@@ -43,7 +40,6 @@
     group: nomad
     mode: "0640"
   when: "'manager_encrypt' in group_names"
-  notify: "start nomad"
   tags:
     - install
 

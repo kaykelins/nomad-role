@@ -8,3 +8,4 @@
   - nomad_service.yml
   - nomad_data.yml
   - nomad_config.yml
+  - nomad_start.yml

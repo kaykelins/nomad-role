@@ -44,10 +44,5 @@
   file:
     path: /usr/sbin/nomad
     state: absent
-  notify: "stop nomad"
-  tags:
-    - uninstall
-
-- meta: flush_handlers
   tags:
     - uninstall
