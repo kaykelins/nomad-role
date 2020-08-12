@@ -1,5 +1,5 @@
 ---
-- name: Download_nomad_to_bin
+- name: Download nomad to bin
   unarchive:
     src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
     dest: /usr/local/bin
@@ -9,19 +9,10 @@
     remote_src: yes
   register: result_bin
   ignore_errors: True
+  tags:
+    - install
 
-- name: Download_nomad_to_sbin
-  unarchive:
-    src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
-    dest: /usr/sbin
-    owner: root
-    group: root
-    mode: '0755'
-    remote_src: yes
-  register: result_sbin
-  ignore_errors: True
-
-- name: Download_nomad_offline_bin
+- name: Download nomad offline bin
   unarchive:
     src: nomad.zip
     dest: /usr/local/bin
@@ -29,13 +20,34 @@
     group: root
     mode: '0755'
   when: result_bin is failed
+  tags:
+    - install
 
-- name: Download_nomad_offline_sbin
-  unarchive:
-    src: nomad.zip
-    dest: /usr/local/sbin
+- name: Create a Nomad symbolic link
+  file:
+    src: /usr/local/bin/nomad
+    dest: /usr/sbin/nomad
     owner: root
     group: root
-    mode: '0755'
-  when: result_sbin is failed
+    state: link
+  tags:
+    - install
 
+- name: Remove nomad
+  file:
+    path: /usr/local/bin/nomad
+    state: absent
+  tags:
+    - uninstall
+
+- name: Remove a Nomad symbolic link
+  file:
+    path: /usr/sbin/nomad
+    state: absent
+  notify: "stop nomad"
+  tags:
+    - uninstall
+
+- meta: flush_handlers
+  tags:
+    - uninstall

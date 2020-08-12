@@ -3,3 +3,12 @@
   group:
     name: nomad
     state: present
+  tags:
+    - install
+
+- name: Remove Nomad Group
+  group:
+    name: nomad
+    state: absent
+  tags:
+    - uninstall

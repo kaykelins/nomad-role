@@ -6,3 +6,12 @@
     owner: nomad
     group: nomad
     mode: 0640
+  tags:
+    - install
+
+- name: Remove Nomad Service
+  file:
+    path: /etc/systemd/system/nomad.service
+    state: absent
+  tags:
+    - uninstall

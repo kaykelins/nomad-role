@@ -6,3 +6,13 @@
     home: /etc/nomad.d
     groups: nomad,docker
     system: yes
+  tags:
+    - install
+
+- name: Remove Nomad User
+  user:
+    name: nomad
+    state: absent
+    remove: yes
+  tags:
+    - uninstall
