@@ -1,15 +1,17 @@
 log_level = "{{ log_level }}"
 bind_addr = "{{ bind_addr }}"
 data_dir = "{{ data_dir }}"
-region = "{{region}}"
+region = "{{ region }}"
 
 client {
     enabled = "{{ client_enable }}"
     network_interface = "{{ network_interface }}"
     server_join {
-        retry_join = ["{{ retry_join }}"]
-        retry_max = "{{ retry_max }}"
-        retry_interval = "{{ retry_interval }}"
+{% if consul is false %}
+      retry_join = ["{{ retry_join }}"]
+{% endif %}
+      retry_max = "{{ retry_max }}"
+      retry_interval = "{{ retry_interval }}"
     }
     options = {
       "driver.whitelist" = "{{ client_driver_whitelist }}"
@@ -18,15 +20,18 @@ client {
     gc_disk_usage_threshold = {{ client_gc_disk_usage_threshold }}
     gc_parallel_destroys = {{ client_gc_parallel_destroys }}
 }
-
+{% if consul %}
 consul {
   address             = "{{ ansible_facts.default_ipv4.address }}:{{ consul_port }}"
   client_service_name = "{{ client_service_name }}"
   auto_advertise      = "{{ auto_advertise }}"
   client_auto_join    = "{{ client_auto_join }}"
+{% if consul_acl %}
   token               = "{{ client_token }}"
   allow_unauthenticated = "{{ consul_allow_unauthenticated }}"
+{% endif %}
 }
+{% endif %}
 
 acl {
   enabled = "{{ acl_enable }}"
@@ -34,6 +39,8 @@ acl {
 
 vault {
   enabled          = "{{ vault_enabled }}"
+{% if vault_enabled %}
   address          = "{{ vault_schema }}://{{ vault_address }}:{{ vault_port }}"
   create_from_role = "{{ vault_create_from_role }}"
+{% endif %}
 }

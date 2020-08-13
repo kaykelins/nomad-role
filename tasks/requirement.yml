@@ -25,5 +25,6 @@
     name: nomad
     state: stopped
     enabled: no
+  ignore_errors: yes
   tags:
     - uninstall

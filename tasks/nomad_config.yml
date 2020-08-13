@@ -6,29 +6,7 @@
     owner: nomad
     group: nomad
     mode: "0640"
-  when: "'manager' in group_names and not encrypt and not standalone"
-  tags:
-    - install
-
-- name: nomad manager Config (encrypt_enabled)
-  template:
-    src: manager_encrypt.j2
-    dest: /etc/nomad.d/nomad.hcl
-    owner: nomad
-    group: nomad
-    mode: "0640"
-  when: encrypt is true 
-  tags:
-    - install
-
-- name: nomad standalone config
-  template:
-    src: standalone.j2
-    dest: /etc/nomad.d/nomad.hcl
-    owner: nomad
-    group: nomad
-    mode: "0640"
-  when: standalone is true
+  when: "'manager' in group_names"
   tags:
     - install
 
@@ -39,7 +17,7 @@
     owner: nomad
     group: nomad
     mode: "0640"
-  when: "'worker' in group_names and not encrypt and not standalone"
+  when: "'worker' in group_names"
   tags:
     - install
 

@@ -6,6 +6,16 @@ region    = "{{ region }}"
 server {
     enabled = "{{ server_enable }}"
     bootstrap_expect = "{{ bootstrap_expect }}"
+    server_join {
+{% if consul is false %}
+      retry_join = ["{{ retry_join }}"]
+{% endif %}
+      retry_max = 3
+      retry_interval = "15s"
+    }
+{% if encrypt %}
+    encrypt = "{{ encrypt_token }}"
+{% endif %}
     node_gc_threshold = "{{ node_gc_threshold }}"
     job_gc_threshold = "{{ job_gc_threshold }}"
     job_gc_interval = "{{ job_gc_interval }}"
@@ -13,23 +23,34 @@ server {
     deployment_gc_threshold = "{{ deployment_gc_threshold }}"
 }
 
+{% if standalone %}
+client {
+    enabled = "{{ client_enable }}"
+    network_interface = "{{ network_interface }}"
+}
+{% endif %}
 
+{% if consul %}
 consul {
   address             = "{{ consul_address }}:{{ consul_port }}"
   server_service_name = "{{ server_service_name }}"
   auto_advertise      = "{{ auto_advertise }}"
   server_auto_join    = "{{ server_auto_join }}"
+{%if consul_acl %}
   token               = "{{ server_token }}"
   allow_unauthenticated = "{{ consul_allow_unauthenticated }}"
+{% endif %}
 }
-
+{% endif %}
 acl {
   enabled = "{{ acl_enable }}"
 }
 
 vault {
-  enabled          = "{{ vault_enabled }}"
+  enabled = "{{ vault_enabled }}"
+{% if vault_enabled %}
   address          = "{{ vault_schema }}://{{ vault_address }}:{{ vault_port }}"
   create_from_role = "{{ vault_create_from_role }}"
   token            = "{{ vault_token }}"
+{% endif %}
 }

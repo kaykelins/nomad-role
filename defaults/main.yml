@@ -1,11 +1,13 @@
 ---
 # defaults file for nomad-common
-nomad_version: 0.12.1
 #* Nomad Basic Config Variables
 log_level: "DEBUG"
 bind_addr: "{{ ansible_facts.default_ipv4.address }}"
 data_dir: "/opt/nomad"
 region: "us-east"
+nomad_version: 0.12.1
+encrypt: false
+standalone: false
 
 #* Consul Config Variables
 consul_address: "{{ ansible_facts.default_ipv4.address }}"
@@ -18,6 +20,8 @@ client_auto_join: "true"
 server_token: ""
 client_token: ""
 consul_allow_unauthenticated: "false"
+consul_acl: true
+consul: false
 
 #* Nomad Server Config Variables
 server_enable: "true"
