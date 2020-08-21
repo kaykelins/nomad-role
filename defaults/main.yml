@@ -7,7 +7,7 @@ data_dir: "/opt/nomad"
 region: "us-east"
 nomad_version: 0.12.1
 encrypt: false
-standalone: false
+worker: false
 
 #* Consul Config Variables
 consul_address: "{{ ansible_facts.default_ipv4.address }}"
@@ -45,7 +45,7 @@ client_gc_parallel_destroys: 5
 client_driver_whitelist: "docker"
 
 #* Nomad Acl Config Variables
-acl_enable: "true"
+acl_enabled: "true"
 
 #* Vault Config Variables
 vault_enabled: false
@@ -54,3 +54,15 @@ vault_schema: "http"
 vault_port: 8200
 vault_create_from_role: "nomad-cluster"
 vault_token: ""
+
+#* Custom Docker Plugin
+custom_docker_plugin: false
+plugin_docker_gc_image: "false"
+plugin_docker_gc_container: "true"
+plugin_docker_gc_dangling_containers_enabled: "true"
+plugin_docker_gc_dangling_containers_dry_run: "false"
+plugin_docker_gc_dangling_containers_period: "5m"
+plugin_docker_gc_dangling_containers_creation_grace: "5m"
+plugin_docker_allow_privileged: "true"
+plugin_docker_volumes_enabled: "true"
+plugin_docker_selinux_label: "z,rw"

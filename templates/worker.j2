@@ -34,7 +34,7 @@ consul {
 {% endif %}
 
 acl {
-  enabled = "{{ acl_enable }}"
+  enabled = "{{ acl_enabled }}"
 }
 
 vault {
@@ -44,3 +44,25 @@ vault {
   create_from_role = "{{ vault_create_from_role }}"
 {% endif %}
 }
+{% if custom_docker_plugin %}
+plugin "docker" {
+  config {
+    gc {
+      image       = "{{plugin_docker_gc_image}}"
+      container   = "{{plugin_docker_gc_container}}"
+
+      dangling_containers {
+        enabled        = "{{plugin_docker_gc_dangling_containers_enabled}}"
+        dry_run        = "{{plugin_docker_gc_dangling_containers_dry_run}}"
+        period         = "{{plugin_docker_gc_dangling_containers_period}}"
+        creation_grace = "{{plugin_docker_gc_dangling_containers_creation_grace}}"
+      }
+    }
+    allow_privileged = "{{plugin_docker_allow_privileged}}"
+    volumes {
+      enabled      = "{{plugin_docker_volumes_enabled}}"
+      selinuxlabel = "{{plugin_docker_selinux_label}}"
+    }
+  }
+}
+{% endif %}
