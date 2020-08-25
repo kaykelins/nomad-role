@@ -77,4 +77,11 @@ plugin "docker" {
   }
 }
 {% endif %}
+{% if raw_exec_enabled %}
+plugin "raw_exec" {
+  config {
+    enabled = "{{raw_exec_enabled}}"
+  }
+}
+{% endif %}
 {% endif %}
