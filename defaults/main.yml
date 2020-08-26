@@ -8,6 +8,7 @@ region: "us-east"
 nomad_version: 0.12.1
 encrypt: false
 worker: false
+nomad_groups: "nomad,docker,root"
 
 #* Consul Config Variables
 consul_address: "{{ ansible_facts.default_ipv4.address }}"
@@ -63,7 +64,7 @@ plugin_docker_gc_dangling_containers_enabled: "true"
 plugin_docker_gc_dangling_containers_dry_run: "false"
 plugin_docker_gc_dangling_containers_period: "5m"
 plugin_docker_gc_dangling_containers_creation_grace: "5m"
-plugin_docker_allow_privileged: "true"
+plugin_docker_allow_privileged: "false"
 plugin_docker_volumes_enabled: "true"
 plugin_docker_selinux_label: "z,rw"
 

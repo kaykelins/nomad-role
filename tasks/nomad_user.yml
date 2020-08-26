@@ -4,7 +4,7 @@
     name: nomad
     shell: /bin/false
     home: /etc/nomad.d
-    groups: nomad,docker
+    groups: ["{{ nomad_groups }}"]
     system: yes
   tags:
     - install
