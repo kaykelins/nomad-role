@@ -3,8 +3,8 @@
   file:
     path: /opt/nomad
     state: directory
-    owner: nomad
-    group: nomad
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
   tags:
     - install
 
