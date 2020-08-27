@@ -3,8 +3,8 @@
   template:
     src: manager.j2
     dest: /etc/nomad.d/nomad.hcl
-    owner: nomad
-    group: nomad
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
     mode: "0640"
   when: "'manager' in group_names"
   tags:
@@ -14,8 +14,8 @@
   template:
     src: worker.j2
     dest: /etc/nomad.d/nomad.hcl
-    owner: nomad
-    group: nomad
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
     mode: "0640"
   when: "'worker' in group_names"
   tags:
