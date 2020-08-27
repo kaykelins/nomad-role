@@ -1,11 +1,13 @@
 ---
 - name: Create Nomad User
   user:
-    name: nomad
-    shell: /bin/false
+    name: "{{nomad_user}}"
+    shell: "{{nomad_shell}}"
     home: /etc/nomad.d
-    groups: ["{{ nomad_groups }}"]
-    system: yes
+    groups: "{{ nomad_groups }}"
+    system: "{{user_system}}"
+    append: "{{user_append}}"
+    state: present
   tags:
     - install
 
