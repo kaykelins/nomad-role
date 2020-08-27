@@ -8,7 +8,11 @@ region: "us-east"
 nomad_version: 0.12.1
 encrypt: false
 worker: false
-nomad_groups: "nomad,docker,root"
+nomad_groups: "nomad,docker"
+nomad_user: "nomad"
+nomad_group: "nomad"
+user_system: yes
+user_append: no
 
 #* Consul Config Variables
 consul_address: "{{ ansible_facts.default_ipv4.address }}"
