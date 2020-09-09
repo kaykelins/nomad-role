@@ -7,8 +7,8 @@ server {
     enabled = "{{ server_enable }}"
     bootstrap_expect = "{{ bootstrap_expect }}"
     server_join {
-{% if consul is false %}
-      retry_join = ["{{ retry_join }}"]
+{% if not consul %}
+      retry_join = [{%for host in groups['manager']%}"{{hostvars[host].ansible_eth0.ipv4.address}}"{% if not loop.last %},{% endif %}{% endfor %}]
 {% endif %}
       retry_max = 3
       retry_interval = "15s"

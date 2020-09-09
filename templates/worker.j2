@@ -7,8 +7,8 @@ client {
     enabled = "{{ client_enable }}"
     network_interface = "{{ network_interface }}"
     server_join {
-{% if consul is false %}
-      retry_join = ["{{ retry_join }}"]
+{% if not consul %}
+      retry_join = [{%for host in groups['manager']%}"{{hostvars[host].ansible_eth0.ipv4.address}}"{% if not loop.last %},{% endif %}{% endfor %}]
 {% endif %}
       retry_max = "{{ retry_max }}"
       retry_interval = "{{ retry_interval }}"
@@ -22,7 +22,7 @@ client {
 }
 {% if consul %}
 consul {
-  address             = "{{ ansible_facts.default_ipv4.address }}:{{ consul_port }}"
+  address             = "{{ consul_address }}:{{ consul_port }}"
   client_service_name = "{{ client_service_name }}"
   auto_advertise      = "{{ auto_advertise }}"
   client_auto_join    = "{{ client_auto_join }}"

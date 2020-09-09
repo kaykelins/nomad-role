@@ -25,7 +25,7 @@ client_auto_join: "true"
 server_token: ""
 client_token: ""
 consul_allow_unauthenticated: "false"
-consul_acl: true
+consul_acl: false
 consul: false
 
 #* Nomad Server Config Variables
@@ -43,7 +43,6 @@ client_enable: "true"
 network_interface: "eth0"
 retry_max: 3
 retry_interval: "15s"
-retry_join: "{{hostvars[groups['manager'][0]]['ansible_default_ipv4']['address']}}"
 client_gc_interval: "10m"
 client_gc_disk_usage_threshold: 80
 client_gc_parallel_destroys: 5
