@@ -1,6 +1,7 @@
 ---
 - name: Create Nomad Group
   group:
+    gid: 1001
     name: nomad
     state: present
   tags:
