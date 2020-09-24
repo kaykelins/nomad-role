@@ -20,7 +20,7 @@
     state: directory
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
-  when: result_add_user is false
+  when: result_add_user is failed
   tags:
     - install
 
@@ -28,7 +28,7 @@
   user:
     name: "{{ nomad_user }}"
     group: docker
-  when: result_add_user is false
+  when: result_add_user is failed
   tags:
     - install
 
@@ -46,6 +46,6 @@
   file:
     path: /etc/nomad.d
     state: absent
-  when: result_del_user is false
+  when: result_del_user is failed
   tags:
     - uninstall
