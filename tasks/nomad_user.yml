@@ -9,13 +9,43 @@
     append: "{{user_append}}"
     state: present
     uid: 1001
+  ignore_errors: True
+  register: result_add_user
+  tags:
+    - install
+
+- name: nomad home dir
+  file:
+    path: /etc/nomad.d
+    state: directory
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+  when: result_add_user is false
+  tags:
+    - install
+
+- name: Add user to docker group
+  user:
+    name: "{{ nomad_user }}"
+    group: docker
+  when: result_add_user is false
   tags:
     - install
 
 - name: Remove Nomad User
   user:
-    name: nomad
+    name: "{{nomad_user}}"
     state: absent
     remove: yes
+  ignore_errors: True
+  register: result_del_user
+  tags:
+    - uninstall
+
+- name: Remove home dir
+  file:
+    path: /etc/nomad.d
+    state: absent
+  when: result_del_user is false
   tags:
     - uninstall
