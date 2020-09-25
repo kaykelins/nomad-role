@@ -24,10 +24,8 @@
   tags:
     - install
 
-- name: Add user to docker group
-  user:
-    name: "{{ nomad_user }}"
-    group: docker
+- name: Add user to groups
+  shell: "usermod -aG docker {{ nomad_user }}"
   when: result_add_user is failed
   tags:
     - install
