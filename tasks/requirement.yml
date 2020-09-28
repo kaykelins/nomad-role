@@ -1,23 +1,37 @@
+- name: "Add hashicorp Repository"
+  yum_repository:
+    name: "nomad"
+    description: "Nomad stable repository"
+    baseurl: "{{hashicorp_baseurl}}"
+    gpgkey: "{{hashicorp_key}}"
+    gpgcheck: yes
+    enabled: yes
+  register: result_repo
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
+    - install
+
 - name: "Installing Debian Unzip"
   apt:
-    name: 
+    name:
       - unzip
     state: latest
     update_cache: true
   when:
-    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - result_repo is failed and ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   tags:
     - install
 
 - name: "Installing Centos Unzip"
   yum:
-    name: 
+    name:
       - unzip
     state: latest
     update_cache: true
   when:
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-  tags: 
+    - result_repo is failed and ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
     - install
 
 - name: stop nomad

@@ -1,4 +1,27 @@
 ---
+- name: install nomad Centos package
+  yum:
+    name:
+      - nomad-{{nomad_version}}
+    state: present
+    update_cache: true
+  register: rpm_bin
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
+    - install
+
+- name: install nomad Debian package
+  apt:
+    name: nomad-{{nomad_version}}
+    state: present
+    update_cache: true
+  register: apt_bin
+  when:
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+    - install
+
 - name: Download nomad to bin
   unarchive:
     src: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
@@ -8,6 +31,7 @@
     mode: '0755'
     remote_src: yes
   register: result_bin
+  when: rpm_bin is failed or apt_bin is failed
   ignore_errors: True
   tags:
     - install
@@ -26,12 +50,23 @@
 - name: Create a Nomad symbolic link
   file:
     src: /usr/local/bin/nomad
-    dest: /usr/sbin/nomad
+    dest: /bin/nomad
     owner: root
     group: root
     state: link
+  when: rpm_bin is failed
   tags:
     - install
+
+- name: uninstall nomad package
+  yum:
+    name: "nomad-{{nomad_version}}"
+    state: absent
+    update_cache: true
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  tags:
+    - uninstall
 
 - name: Remove nomad
   file:
@@ -42,7 +77,7 @@
 
 - name: Remove a Nomad symbolic link
   file:
-    path: /usr/sbin/nomad
+    path: /bin/nomad
     state: absent
   tags:
     - uninstall

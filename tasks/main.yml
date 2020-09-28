@@ -2,9 +2,9 @@
 - include: "{{item}}"
   loop:
   - requirement.yml
+  - nomad_bin.yml
   - nomad_group.yml
   - nomad_user.yml
-  - nomad_bin.yml
   - nomad_service.yml
   - nomad_data.yml
   - nomad_config.yml

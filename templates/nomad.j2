@@ -8,7 +8,7 @@ ConditionFileNotEmpty=/etc/nomad.d/nomad.hcl
 [Service]
 User={{nomad_user}}
 Group={{nomad_group}}
-ExecStart=/usr/local/bin/nomad agent -config=/etc/nomad.d/
+ExecStart=/bin/nomad agent -config=/etc/nomad.d/
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 Restart=on-failure

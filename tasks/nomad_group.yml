@@ -1,9 +1,9 @@
 ---
 - name: Create Nomad Group
   group:
-    gid: 1001
     name: nomad
     state: present
+  when: rpm_bin is failed or apt_bin is failed
   tags:
     - install
 
